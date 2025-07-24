@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renamer {
+namespace Eingabe {
     class Program {
         static void Main(string[] args) {
             if (args.Length==0)
@@ -14,6 +14,4 @@ namespace Renamer {
             }
         }
     }
-
-
 }
