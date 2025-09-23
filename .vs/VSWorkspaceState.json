@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\obj\\Debug",
+    "\\obj\\Debug\\net9.0",
+    "\\obj\\Release",
+    "\\Renamer",
+    "\\Renamer\\obj"
   ],
-  "SelectedNode": "\\C:\\Users\\dominik\\Source\\Repos\\Renamer",
+  "SelectedNode": "\\Renamer\\Utils.cs",
   "PreviewInSolutionExplorer": false
 }
