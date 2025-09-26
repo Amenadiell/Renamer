@@ -198,3 +198,59 @@ public static string ConvertDateInFilename(string filename)
 
 ````
 
+
+
+
+first i want to fix the Integration to be able to use my console 
+ChatGPT:
+
+Perfect 👍 — let’s get your integration fixed first so the project actually runs from the console.
+
+Right now, you have two entry points:
+
+Matcher.Main() in Matcher.cs
+
+Input.Main() in Program.cs (unfinished)
+
+👉 A .NET console app can only have one Main method as the entry point.
+
+Here’s a cleaned-up version of Program.cs that integrates with your utilities and matcher:
+
+using System;
+using System.IO;
+using Utils;
+
+namespace Renamer
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            if (args.Length < 3)
+            {
+                Console.WriteLine("Usage: Renamer <directory> <pattern> <replacement>");
+                Console.WriteLine("Example: Renamer C:\\files *.jpg new-*.jpg");
+                return;
+            }
+
+            string directory = args[0];
+            string wildcard = args[1];
+            string replacement = args[2];
+
+            try
+            {
+                Files.RenameFiles(directory, wildcard, replacement);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+    }
+}
+
+
+
+
+
+
