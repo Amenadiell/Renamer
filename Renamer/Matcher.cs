@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Renamer
 {
-    class Matcher
+    static class Matcher
     {
         static string VERSION = "V1.0";
         public static List<string> matcher(string oldName, string newName, List<string> files)
@@ -90,7 +90,7 @@ namespace Renamer
 
         }
 
-        private static void test(string[] files, string oldName, string newName, string testRes = null)
+        private static void test(string[] files, string oldName, string newName, string? testRes = null)
         {
             Console.WriteLine($"oldName:{oldName} newName: {newName}");
             List<string> res = matcher(oldName, newName, new List<string>(files));
@@ -108,20 +108,20 @@ namespace Renamer
         //public static void Main(string[] args)
         //{
         //    int RUN_DEBUG = 1;
-        //
-        //  if (RUN_DEBUG == 1)
+
+        //    if (RUN_DEBUG == 1)
         //    {
         //        runTests();
         //        Console.ReadKey();
         //        return;
         //    }
 
-            //
-            // work on matcher...
-            //
+
+        //    //work on matcher...
+            
 
         //    Console.WriteLine("ToDo: current work on matcher...");
-        //   Console.ReadKey();
+        //    Console.ReadKey();
         //}
 
 

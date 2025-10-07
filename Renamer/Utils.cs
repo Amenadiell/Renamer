@@ -32,7 +32,7 @@ namespace Utils
                 return;
             }
 
-            var regex = RegexConverter.newPattern(wildcard);
+            var regex = RegexConverter.newPattern(wildcard, true, true); // testweise aufgrund von Fehlermeldung
 
             foreach (var file in matchingFiles(directory,regex))
             {

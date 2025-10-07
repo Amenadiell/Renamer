@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Renamer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+335e87b4cf5aae554caeb1514ddc9d8147e039d8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c829e6176fbe4a0f3741d098f8f1bdb684e277a8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Renamer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Renamer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,15 @@
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\obj\Debug\net8.0\Renamer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\obj\Debug\net8.0\Renamer.AssemblyInfoInputs.cache
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\obj\Debug\net8.0\Renamer.AssemblyInfo.cs
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\obj\Debug\net8.0\Renamer.csproj.CoreCompileInputs.cache
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\obj\Debug\net8.0\Renamer.sourcelink.json
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\bin\Debug\net8.0\Renamer.exe
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\bin\Debug\net8.0\Renamer.deps.json
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\bin\Debug\net8.0\Renamer.runtimeconfig.json
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\bin\Debug\net8.0\Renamer.dll
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\bin\Debug\net8.0\Renamer.pdb
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\obj\Debug\net8.0\Renamer.dll
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\obj\Debug\net8.0\refint\Renamer.dll
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\obj\Debug\net8.0\Renamer.pdb
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\obj\Debug\net8.0\Renamer.genruntimeconfig.cache
+C:\Berufsschule\Projektarbeit\Renamer\Renamer\obj\Debug\net8.0\ref\Renamer.dll
