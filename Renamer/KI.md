@@ -248,6 +248,7 @@ namespace Renamer
         }
     }
 }
+Wie funktioniert das Editieren dieses Dokumentes
 
 
 
