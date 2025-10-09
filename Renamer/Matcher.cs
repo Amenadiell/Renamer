@@ -10,7 +10,7 @@ namespace Renamer
     static class Matcher
     {
         static string VERSION = "V1.0";
-        public static List<string> matcher(string oldName, string newName, List<string> files)
+        public static List<string> match(string oldName, string newName, List<string> files)
         {
             // Escape regex special chars, except * and ?
             string regexPattern = "^" + Regex.Escape(oldName)
