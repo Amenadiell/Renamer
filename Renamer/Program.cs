@@ -26,44 +26,111 @@ namespace Renamer
             string currentDir = Directory.GetCurrentDirectory();
             List<string> files = new List<string>(Directory.GetFiles(currentDir));
 
-            for (int i = 0; i < files.Count; i++)
+            if (Regex.IsMatch(oldPattern, @"^\d{8}\*\.jpg$") && Regex.IsMatch(newPattern, @"^\d{2}-\d{2}-\d{4}\*\.jpg$"))
             {
-                string oldFilePath = files[i];
-                string filename = Path.GetFileName(oldFilePath);
-                string newFileName;
-
-                // If the oldPattern is found as a substring, replace it directly
-                if (filename.Contains(oldPattern) && !oldPattern.Contains("*") && !oldPattern.Contains("?"))
+                Regex dateRegex = new Regex(@"^(?<date>\d{8})(?<rest>.*)\.jpg$", RegexOptions.IgnoreCase);
+                foreach (string oldFilePath in files)
                 {
-                    if (occurrence > 0)
+                    string filename = Path.GetFileName(oldFilePath);
+                    Match m = dateRegex.Match(filename);
+                    if (m.Success)
                     {
-                        // Use the extension method from Matcher.cs
-                        newFileName = Matcher.Replace(filename, oldPattern, newPattern, occurrence);
+                        string date = m.Groups["date"].Value;
+                        string rest = m.Groups["rest"].Value;
+                        string formattedDate = $"{date.Substring(0, 2)}-{date.Substring(2, 2)}-{date.Substring(4, 4)}";
+                        string newFileName = $"{formattedDate}{rest}.jpg";
+                        string newFilePath = Path.Combine(currentDir, newFileName);
+
+                        if (!File.Exists(newFilePath))
+                        {
+                            File.Move(oldFilePath, newFilePath);
+                            Console.WriteLine($"Renamed: {oldFilePath} -> {newFilePath}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Skipped (target exists): {newFilePath}");
+                        }
+                    }
+                }
+
+                // If newPattern contains a number placeholder (e.g., 001), use numbering
+                if (newPattern.Contains("001"))
+            {
+                int count = 1;
+                int digits = 3; // Default to 3 digits, can be inferred from newPattern
+                int digitStart = newPattern.IndexOf("001");
+                while (digitStart > 0 && char.IsDigit(newPattern[digitStart - 1]))
+                {
+                    digitStart--;
+                    digits++;
+                }
+
+                foreach (string oldFilePath in files)
+                {
+                    string filename = Path.GetFileName(oldFilePath);
+                    // Use Matcher.match to check if file matches the pattern
+                    List<string> matchResult = Matcher.match(oldPattern, newPattern, new List<string> { oldFilePath });
+                    string matchedName = matchResult[0];
+
+                    // Only rename if matched
+                    if (matchedName != filename)
+                    {
+                        // Format number with leading zeros
+                        string number = count.ToString().PadLeft(digits, '0');
+                        string newFileName = newPattern.Replace("001", number);
+
+                        string newFilePath = Path.Combine(currentDir, newFileName);
+                        if (!File.Exists(newFilePath))
+                        {
+                            File.Move(oldFilePath, newFilePath);
+                            Console.WriteLine($"Renamed: {oldFilePath} -> {newFilePath}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Skipped (target exists): {newFilePath}");
+                        }
+                        count++;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < files.Count; i++)
+                {
+                    string oldFilePath = files[i];
+                    string filename = Path.GetFileName(oldFilePath);
+                    string newFileName;
+
+                    // If the oldPattern is found as a substring, replace it directly
+                    if (filename.Contains(oldPattern) && !oldPattern.Contains("*") && !oldPattern.Contains("?"))
+                    {
+                        if (occurrence > 0)
+                        {
+                            newFileName = Matcher.Replace(filename, oldPattern, newPattern, occurrence);
+                        }
+                        else
+                        {
+                            newFileName = filename.Replace(oldPattern, newPattern);
+                        }
                     }
                     else
                     {
-                        newFileName = filename.Replace(oldPattern, newPattern);
+                        List<string> singleResult = Matcher.match(oldPattern, newPattern, new List<string> { oldFilePath });
+                        newFileName = singleResult[0];
                     }
-                }
-                else
-                {
-                    // Use Matcher.match for wildcard patterns
-                    List<string> singleResult = Matcher.match(oldPattern, newPattern, new List<string> { oldFilePath });
-                    newFileName = singleResult[0];
-                }
 
-                // Only rename if the name has changed
-                if (filename != newFileName)
-                {
-                    string newFilePath = Path.Combine(currentDir, newFileName);
-                    if (!File.Exists(newFilePath))
+                    if (filename != newFileName)
                     {
-                        File.Move(oldFilePath, newFilePath);
-                        Console.WriteLine($"Renamed: {oldFilePath} -> {newFilePath}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Skipped (target exists): {newFilePath}");
+                        string newFilePath = Path.Combine(currentDir, newFileName);
+                        if (!File.Exists(newFilePath))
+                        {
+                            File.Move(oldFilePath, newFilePath);
+                            Console.WriteLine($"Renamed: {oldFilePath} -> {newFilePath}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Skipped (target exists): {newFilePath}");
+                        }
                     }
                 }
             }
