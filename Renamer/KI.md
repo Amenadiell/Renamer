@@ -28,7 +28,7 @@ Verzeichnis-Rekursion:
 <details>
   <summary> Code ansehen</summary>
 
-```text
+```csharp
 using System;
 using System.IO;
 using System.Linq;
@@ -160,7 +160,7 @@ Here’s a utility function to convert wildcard → regex:
 <details>
   <summary> Code ansehen</summary>
 
-```text
+```csharp
 ```C#
 using System;
 using System.Text.RegularExpressions;
@@ -232,7 +232,7 @@ Replace * in newName with group(1):
 <details>
   <summary> Code ansehen</summary>
 
-```text
+```csharp
 ```C#
 public static List<string> matcher(string oldName, string newName, List<string> files)
 {
@@ -293,7 +293,7 @@ Replaces it in the filename.
 </details>
 
 <details>
-    <summary>➡️ Code anzeigen</summary>
+    <summary> Code anzeigen</summary>
 
 ```csharp
 public static string ConvertDateInFilename(string filename)
@@ -320,3 +320,61 @@ public static string ConvertDateInFilename(string filename)
 }
 ```
 </details>
+Diese Implementierung hatte tatsächlich auch seinen Mehrwert, die Trennun funktionierte.
+
+Wir hatten ein Problem den Code auszuführen, da wir mehrere main Methoden hatten, da wir an mehreren Stellen gleichzeitig mit ChatGPT gearbeitet hatten und dieser dann nicht genau mit unserem Code umgehen konnte. 
+Dafür haben wir ihm unsere gesammte Projektmappe gegeben um so ChatGPT ein besseren Überblich zu geben, wo wir gerade Probleme haben. 
+
+####Antwort der KI: Perfect 👍 — let’s get your integration fixed first so the project actually runs from the console.
+
+Right now, you have two entry points:
+
+Matcher.Main() in Matcher.cs
+
+Input.Main() in Program.cs (unfinished)
+
+👉 A .NET console app can only have one Main method as the entry point.
+
+Here’s a cleaned-up version of Program.cs that integrates with your utilities and matcher:
+
+</details>
+
+<details>
+    <summary> Code anzeigen</summary>
+
+```csharp
+using System;
+using System.IO;
+using Utils;
+
+namespace Renamer
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            if (args.Length < 3)
+            {
+                Console.WriteLine("Usage: Renamer <directory> <pattern> <replacement>");
+                Console.WriteLine("Example: Renamer C:\\files *.jpg new-*.jpg");
+                return;
+            }
+
+            string directory = args[0];
+            string wildcard = args[1];
+            string replacement = args[2];
+
+            try
+            {
+                Files.RenameFiles(directory, wildcard, replacement);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+    }
+}
+```
+</details>
+
