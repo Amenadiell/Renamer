@@ -8,7 +8,7 @@ Um uns einen generellen Überblick und einen ersten Startpunkt von der KI zu erh
 
 # KI Promts und Antworten  
 
-### Startpromt // Stratpromt fehlt?  
+### Startpromt
 
 Entwickle ein Tool in C#, das in der Lage ist, Dateinamen-Muster zu erkennen und anschließend alle passenden Dateien in einem angegebenen Verzeichnis (inkl. Unterordner) automatisch umzubenennen. Besonderes Augenmerk liegt dabei auf der intelligenten Behandlung von Zahlenfolgen, etwa durch Einfügen führender Nullen zur Vereinheitlichung. 
 
@@ -325,16 +325,12 @@ Diese Implementierung hatte tatsächlich auch seinen Mehrwert, die Trennun funkt
 Wir hatten ein Problem den Code auszuführen, da wir mehrere main Methoden hatten, da wir an mehreren Stellen gleichzeitig mit ChatGPT gearbeitet hatten und dieser dann nicht genau mit unserem Code umgehen konnte. 
 Dafür haben wir ihm unsere gesammte Projektmappe gegeben um so ChatGPT ein besseren Überblich zu geben, wo wir gerade Probleme haben. 
 
-####Antwort der KI: Perfect 👍 — let’s get your integration fixed first so the project actually runs from the console.
-
+#### Antwort der KI: 
+Perfect 👍 — let’s get your integration fixed first so the project actually runs from the console.
 Right now, you have two entry points:
-
 Matcher.Main() in Matcher.cs
-
 Input.Main() in Program.cs (unfinished)
-
 👉 A .NET console app can only have one Main method as the entry point.
-
 Here’s a cleaned-up version of Program.cs that integrates with your utilities and matcher:
 
 </details>
