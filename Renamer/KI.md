@@ -135,7 +135,7 @@ namespace FilePatternRenamer
 ### Weitere Ausarbeitung des Startcodes
 Als nächstest wollten wir von der KI ein funtionirendes Regex Pattern um unsere Files zu verändern
 
-#### Antword der KI: 
+#### Antwort der KI: 
 Got it 👍 — you want a Regex pattern generator that can take file wildcard expressions (like *.txt or file_??.jpg) and translate them into valid C# Regex patterns that you can use to match filenames.
 
 Here’s the key idea:
@@ -229,6 +229,10 @@ Match img-123.jpg → group(1) = 123
 Replace * in newName with group(1):
 *.gif → 123.gif
 
+<details>
+  <summary> Code ansehen</summary>
+
+```text
 ```C#
 public static List<string> matcher(string oldName, string newName, List<string> files)
 {
@@ -273,3 +277,4 @@ public static List<string> matcher(string oldName, string newName, List<string> 
     return results;
 }
 ````
+</details>
