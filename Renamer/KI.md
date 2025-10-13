@@ -808,6 +808,251 @@ namespace Renamer
 
 ## Änderung der Vorgehensweise
 
-Um dann den Code zu vervollständigen zu können haben wir uns jedoch in der Gruppe dazu entschieden eine andere Methode zu benutzen um mit ChatGPT den Code zu verbessern. Aufgrund von Problemen im Code und eigenen Interpretationswegen des Codes haben wir dann ChatGPT nur noch als "Code-Kontoleur" geutzt, indem wir ihn zu verschiedenen Code-Abschnitten fragten, ob diese so wie sie sind funktionieren können 
+Um dann den Code zu vervollständigen zu können haben wir uns jedoch in der Gruppe dazu entschieden eine andere Methode zu benutzen um mit ChatGPT den Code zu verbessern. Aufgrund von Problemen im Code und eigenen Interpretationswegen des Codes haben wir dann ChatGPT nur noch als "Code-Kontoleur" geutzt, indem wir ihn zu verschiedenen Code-Abschnitten fragten, ob diese so wie sie sind funktionieren können. 
+
+So wie zum Beispiel hier: 
+
+#### Unsere Frage mit Code: 
+
+Does this Code work like this?
+
+</details>
+
+<details>
+    <summary> Code anzeigen</summary>
+
+```csharp
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 
 
+namespace Renamer
+{
+    static class Matcher
+    {
+        static string VERSION = "V1.0";
+        public static List<string> match(string oldName, string newName, List<string> files)
+        {
+            // Escape regex special chars, except * and ?
+            string regexPattern = "^" + Regex.Escape(oldName)
+                .Replace(@"\*", "(.*)")   // capture *
+                .Replace(@"\?", "(.)")    // capture ?
+                + "$";
+
+            Regex regex = new Regex(regexPattern, RegexOptions.IgnoreCase);
+
+            List<string> results = new List<string>();
+
+            foreach (string file in files)
+            {
+                string filename = Path.GetFileName(file);
+                Match match = regex.Match(filename);
+
+                if (!match.Success)
+                {
+                    results.Add(filename); // keep original if not matching
+                    continue;
+                }
+
+                // Replace wildcards in newName with captured groups
+                string newFilename = newName;
+                int groupIndex = 1;
+
+                // handle * and ? in newName
+                foreach (char c in newName.ToCharArray())
+                {
+                    if (c == '*' || c == '?')
+                    {
+                        newFilename = newFilename.Replace(c.ToString(), match.Groups[groupIndex].Value, 1);
+                        groupIndex++;
+                    }
+                }
+
+                results.Add(newFilename);
+            }
+
+            return results;
+        }
+
+
+
+        public static string Replace(this string text, string search, string replace, int count)
+        {
+            int index = text.IndexOf(search);
+            if (index < 0) return text;
+            return text.Substring(0, index) + replace + text.Substring(index + search.Length);
+        }
+
+
+
+        static void runTests()
+        {
+            Console.WriteLine("Run All Matcher Tests");
+            string oldP = "", newP = "", res = "";
+            string[] files1 = {"clipboard01.jpg", "clipboard02.jpg", "clipboard03.jpg",
+                               "clipboard01.gif", "img01.jpg", "img-abc.jpg" };
+
+            oldP = "clipboard01.jpg";
+            newP = "clipboard01.jpg";
+            res = "clipboard01.jpg clipboard02.jpg clipboard03.jpg clipboard01.gif img01.jpg img-abc.jpg";
+            test(files1, oldP, newP, res);
+
+            /*
+            oldP = "clipboard01.jpg";
+            newP = "aaa-clipboard01.jpg";
+            res = "aaa-01.jpg aaa-02.jpg aaa-03.jpg aaa-clipboard01.gif aaa-img01.jpg aaa-img-abc.jpg";
+            test(files1, oldP, newP, res);
+            */
+
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.WriteLine("All tests succeeded!");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ReadKey();
+
+        }
+
+        private static void test(string[] files, string oldName, string newName, string? testRes = null)
+        {
+            Console.WriteLine($"oldName:{oldName} newName: {newName}");
+            List<string> res = match(oldName, newName, new List<string>(files));
+            string resS = string.Join(" ", res);
+            Console.WriteLine("Old:" + string.Join(" ", new List<string>(files)));
+            Console.WriteLine("New:" + resS);
+            Console.WriteLine("--------------------------------------------------");
+            if (testRes != null && resS != testRes)
+            {
+                throw new Exception("Test failed: expected:" + testRes + " received:" + resS);
+            }
+        }
+```
+</details>
+
+#### Antword der KI auf diese Frage: 
+
+Good question 👍 — let’s analyze your C# code carefully.
+At a glance, it’s almost functional, but there are a few issues and missing details that will prevent it from working exactly as you intend.
+Let’s go step by step.
+✅ What your code does correctly
+It defines a Matcher class that:
+Builds a regex pattern from a simple file mask (using * and ?).
+Iterates through a list of filenames and checks for matches.
+Replaces wildcard placeholders (*, ?) in the target pattern (newName) using captured regex groups.
+It has a test harness (runTests() and test()) for simple verification.
+The custom Replace() overload supports replacing only the first occurrence of a substring — that’s clever.
+⚠️ Issues that prevent correct compilation or expected behavior
+1. Missing using System.IO;
+You use Path.GetFileName(file), but System.IO isn’t imported.
+Fix:
+Add at the top:
+using System.IO;
+
+Und immer wenn man dann einen Hinweiß von der KI erhielt, bekam man auch gleich den Code in einer Variante, so wie die KI dachte, dass der Code funktioniert. 
+
+#### Überarbeiteter Code von ChatGPT: 
+
+</details>
+
+<details>
+    <summary> Code anzeigen</summary>
+ ```csharp
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace Renamer
+{
+    static class Matcher
+    {
+        static string VERSION = "V1.0";
+
+        public static List<string> match(string oldName, string newName, List<string> files)
+        {
+            string regexPattern = "^" + Regex.Escape(oldName)
+                .Replace(@"\*", "(.*)")   // capture *
+                .Replace(@"\?", "(.)")    // capture ?
+                + "$";
+
+            Regex regex = new Regex(regexPattern, RegexOptions.IgnoreCase);
+            List<string> results = new List<string>();
+
+            foreach (string file in files)
+            {
+                string filename = Path.GetFileName(file);
+                Match match = regex.Match(filename);
+
+                if (!match.Success)
+                {
+                    results.Add(filename);
+                    continue;
+                }
+
+                string newFilename = newName;
+                int groupIndex = 1;
+
+                foreach (char c in newName.ToCharArray())
+                {
+                    if (c == '*' || c == '?')
+                    {
+                        newFilename = ReplaceFirst(newFilename, c.ToString(), match.Groups[groupIndex].Value);
+                        groupIndex++;
+                    }
+                }
+
+                results.Add(newFilename);
+            }
+
+            return results;
+        }
+
+        public static string ReplaceFirst(string text, string search, string replace)
+        {
+            int index = text.IndexOf(search);
+            if (index < 0) return text;
+            return text.Substring(0, index) + replace + text.Substring(index + search.Length);
+        }
+
+        static void runTests()
+        {
+            Console.WriteLine("Run All Matcher Tests");
+            string[] files1 = {"clipboard01.jpg", "clipboard02.jpg", "clipboard03.jpg",
+                               "clipboard01.gif", "img01.jpg", "img-abc.jpg" };
+
+            string oldP = "clipboard*.jpg";
+            string newP = "Bild_*.jpg";
+            string res = "Bild_01.jpg Bild_02.jpg Bild_03.jpg clipboard01.gif img01.jpg img-abc.jpg";
+
+            test(files1, oldP, newP, res);
+
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.WriteLine("All tests succeeded!");
+            Console.ResetColor();
+            Console.ReadKey();
+        }
+
+        private static void test(string[] files, string oldName, string newName, string? testRes = null)
+        {
+            Console.WriteLine($"oldName:{oldName} newName:{newName}");
+            List<string> res = match(oldName, newName, new List<string>(files));
+            string resS = string.Join(" ", res);
+            Console.WriteLine("Old:" + string.Join(" ", files));
+            Console.WriteLine("New:" + resS);
+            Console.WriteLine("--------------------------------------------------");
+            if (testRes != null && resS != testRes)
+            {
+                throw new Exception("Test failed: expected:" + testRes + " received:" + resS);
+            }
+        }
+
+        static void Main()
+        {
+            runTests();
+        }
+    }
+}
+```
+</details>
