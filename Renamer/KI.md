@@ -19,6 +19,7 @@ Automatische Umbenennung:
  Auf Basis des erkannten Musters werden alle passenden Dateien umbenannt. Zahlen können dabei automatisch mit führenden Nullen ergänzt oder formatiert werden (z. B. 1 → 001). 
 Verzeichnis-Rekursion: 
  Alle Dateien in einem gewählten Verzeichnis inklusive Unterordner werden berücksichtigt. 
+
  
 <details>
   <summary> Code ansehen</summary>
@@ -958,7 +959,9 @@ Und immer wenn man dann einen Hinweiß von der KI erhielt, bekam man auch gleich
 
 <details>
     <summary> Code anzeigen</summary>
- ```csharp
+
+```csharp
+ 
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -1055,5 +1058,13 @@ namespace Renamer
         }
     }
 }
+
 ```
 </details>
+
+### Andere Nutzungen der KI
+
+Auch für kleinere Fragen und kleine Methoden haben wir die Strategie, nur zu fragen, ob der Code so stimmt, genutzt um so das bestmögliche Ergebnis für das Gruppenprojekt zu erzielen, ohne die gesammte Komplexität und Umfangreichheit der KI zu nutzen. 
+Die KI haben außerdem noch für Themen, wie zum Beispiel die Github-Anbindung und die Anbindung der Consolenanwedung mit der .exe im CMD. 
+
+## Fazit
