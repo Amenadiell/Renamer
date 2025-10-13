@@ -11,19 +11,14 @@ Um uns einen generellen Überblick und einen ersten Startpunkt von der KI zu erh
 ### Startpromt
 
 Entwickle ein Tool in C#, das in der Lage ist, Dateinamen-Muster zu erkennen und anschließend alle passenden Dateien in einem angegebenen Verzeichnis (inkl. Unterordner) automatisch umzubenennen. Besonderes Augenmerk liegt dabei auf der intelligenten Behandlung von Zahlenfolgen, etwa durch Einfügen führender Nullen zur Vereinheitlichung. 
-
 Beispieldateiname als Vorlage: 
  Der Benutzer gibt ein Beispiel für das gewünschte Dateinamen-Muster an (z. B. Bild_001.jpg), anhand dessen das Programm die allgemeine Struktur ableitet. 
-
 Mustererkennung: 
  Das Programm analysiert vorhandene Dateinamen und erkennt variable Komponenten – insbesondere Zahlen –, um ein konsistentes Muster zu ermitteln. 
-
 Automatische Umbenennung: 
  Auf Basis des erkannten Musters werden alle passenden Dateien umbenannt. Zahlen können dabei automatisch mit führenden Nullen ergänzt oder formatiert werden (z. B. 1 → 001). 
-
 Verzeichnis-Rekursion: 
  Alle Dateien in einem gewählten Verzeichnis inklusive Unterordner werden berücksichtigt. 
-
  
 <details>
   <summary> Code ansehen</summary>
@@ -137,15 +132,10 @@ Als nächstest wollten wir von der KI ein funtionirendes Regex Pattern um unsere
 
 #### Antwort der KI: 
 Got it 👍 — you want a Regex pattern generator that can take file wildcard expressions (like *.txt or file_??.jpg) and translate them into valid C# Regex patterns that you can use to match filenames.
-
 Here’s the key idea:
-
 * → matches any number of characters → .* in regex
-
 ? → matches a single character → . in regex
-
 Literal characters (. \ + etc.) must be escaped so they don’t act as regex operators
-
 
 Example Conversion
 Wildcard	Regex Equivalent	Matches
@@ -208,24 +198,17 @@ outcome: img-123.gif img-3333.gif img-abc.png
 
 Got it 👍 — thanks for sharing all the code.
 Right now, your RegexConverter handles * and ? wildcards, but your matcher() is not actually applying capture groups, which is what you’ll need to map oldName → newName properly.
-
 Here’s the missing piece: you need to generate a Regex with capture groups from the oldName wildcard, and then use those groups to substitute into the newName pattern.
-
 Example
 
 oldName: img-*.jpg
-
 newName: *.gif
-
 File: img-123.jpg
-
 Steps:
 
 Convert oldName → Regex with a group for *:
 ^img-(.*)\.jpg$
-
 Match img-123.jpg → group(1) = 123
-
 Replace * in newName with group(1):
 *.gif → 123.gif
 
@@ -283,11 +266,8 @@ Um der Aufganbenstellung gerecht zu werden, haben wir uns dann noch um die Trenn
 
 #### Antwort der KI: 
 Good question 👌 — you basically want a helper that:
-
 Detects whether a date-like string (e.g. 31225) exists in the filename.
-
 Splits it into dd-MM-yy format (→ 31-12-25).
-
 Replaces it in the filename.
 
 </details>
@@ -373,4 +353,458 @@ namespace Renamer
 }
 ```
 </details>
+
+Als wir dann den Regex-Konverter ausprobieren konnten, fiel uns auf, das dieser nicht so funktionierte, wie gewollt und wir immer eine Fehlermeldung beim Auführen des Programmes bekamen. Deshalb gaben wir ChatGPT den gesammten Code, in dem wir den Converter benutzten und wollten nocheinmal einen Code für den Converter. 
+
+#### Unser Code an die KI: 
+
+</details>
+
+<details>
+    <summary> Code anzeigen</summary>
+
+```csharp
+My Matcher.cs:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+
+namespace Renamer
+{
+    class Matcher
+    {
+        static string VERSION = "V1.0";
+        public static List<string> matcher(string oldName, string newName, List<string> files)
+        {
+
+            // Do matching here
+            return files;
+        }
+
+        static void runTests()
+        {
+            Console.WriteLine("Run All Matcher Tests");
+            string oldP = "", newP = "", res = "";
+            string[] files1 = {"clipboard01.jpg", "clipboard02.jpg", "clipboard03.jpg",
+                               "clipboard01.gif", "img01.jpg", "img-abc.jpg" };
+
+            oldP = "clipboard01.jpg";
+            newP = "clipboard01.jpg";
+            res = "clipboard01.jpg clipboard02.jpg clipboard03.jpg clipboard01.gif img01.jpg img-abc.jpg";
+            test(files1, oldP, newP, res);
+
+            /*
+            oldP = "clipboard01.jpg";
+            newP = "aaa-clipboard01.jpg";
+            res = "aaa-01.jpg aaa-02.jpg aaa-03.jpg aaa-clipboard01.gif aaa-img01.jpg aaa-img-abc.jpg";
+            test(files1, oldP, newP, res);
+            */
+
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.WriteLine("All tests succeeded!");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ReadKey();
+
+        }
+
+        private static void test(string[] files, string oldName, string newName, string testRes = null)
+        {
+            Console.WriteLine($"oldName:{oldName} newName: {newName}");
+            List<string> res = matcher(oldName, newName, new List<string>(files));
+            string resS = string.Join(" ", res);
+            Console.WriteLine("Old:" + string.Join(" ", new List<string>(files)));
+            Console.WriteLine("New:" + resS);
+            Console.WriteLine("--------------------------------------------------");
+            if (testRes != null && resS != testRes)
+            {
+                throw new Exception("Test failed: expected:" + testRes + " received:" + resS);
+            }
+        }
+
+
+        public static void Main(string[] args)
+        {
+            int RUN_DEBUG = 1;
+
+            if (RUN_DEBUG == 1)
+            {
+                runTests();
+                Console.ReadKey();
+                return;
+            }
+
+            //
+            // work on matcher...
+            //
+
+            Console.WriteLine("ToDo: current work on matcher...");
+            Console.ReadKey();
+        }
+
+
+    }
+}
+
+
+Program.cs:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+
+
+namespace Renamer
+{
+    class Input
+    {
+        static void Main(string[] args)
+        {
+            string currentDir = Directory.GetCurrentDirectory();
+            Matcher.
+
+        }
+}
+
+
+RegexConverter.cs:
+using System;
+using System.Text.RegularExpressions;
+
+public static class RegexConverter
+{
+    public static Regex convert(string wildcard, bool ignoreCase = true)
+    {
+        string regexPattern = "^" + Regex.Escape(wildcard)
+                                     .Replace(@"\*", ".*")
+                                     .Replace(@"\?", ".") + "$";
+
+        return new Regex(regexPattern, ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None);
+    }
+
+
+    public static Regex newPattern(string input, bool isRegex, bool ignoreCase = true)
+    {
+        return isRegex
+            ? new Regex(input, ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None)
+            : convert(input, ignoreCase);
+    }
+
+
+
+}
+
+
+
+Renamer.csproj:
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
+
+
+Utils.cs:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+
+namespace Utils
+{
+    public class Files
+    {
+
+        // List the Files matching input pattern
+        static List<string> matchingFiles(string path, Regex pattern)
+        {
+            var files = Directory.GetFiles(path);
+            List<string> matchedFiles = new List<string>(files.Length);
+            foreach (var file in files)
+            {
+                var match = pattern.Match(file);
+                if (match.Success) matchedFiles.Add(match.Groups[1].Value);
+            }
+            return matchedFiles;
+        }
+
+
+        public static void RenameFiles(string directory,string wildcard,string replacePattern)
+        {
+            if (!Directory.Exists(directory)) 
+            {
+                Console.WriteLine("Directory does not exist");
+                return;
+            }
+
+            var regex = RegexConverter.newPattern(wildcard);
+
+            foreach (var file in matchingFiles(directory,regex))
+            {
+                string currentName = Path.GetFileName(file);
+                string newName = regex.Replace(currentName, replacePattern);
+                string newPath = Path.Combine(directory,newName);
+
+                if (!File.Exists(newPath))
+                {
+                    File.Move(file,newPath);
+                    Console.WriteLine($"Renamed: {currentName} -> {newName}");
+                }else
+                {
+                    Console.WriteLine($"Skipped {currentName} (already exists)");
+                }
+            }
+        }
+
+    }
+}
+
+```
+</details>
+
+#### Antwort der KI: 
+
+Got it 👍 You already have most of the scaffolding in place — RegexConverter handles wildcards → regex, and Utils.Files applies renaming.
+What’s missing is the matcher logic in Matcher.matcher(): it should take oldName and newName, derive a regex pattern from oldName, and then apply the same transformation to all files in the list.
+Here’s a clean way to implement it:
+
+1. Core idea
+Convert oldName into a regex with capture groups so you can reuse them in newName.
+Example:
+oldName = "clipboard01.jpg"
+→ Regex: ^(clipboard)(\d+)(\.jpg)$
+newName = "aaa-$2.jpg" → output: aaa-01.jpg, aaa-02.jpg, etc.
+
+2. Implementation for Matcher.cs:
+</details>
+
+<details>
+    <summary> Code anzeigen</summary>
+
+```csharp
+namespace Renamer
+{
+    class Matcher
+    {
+        static string VERSION = "V1.0";
+
+        public static List<string> matcher(string oldName, string newName, List<string> files)
+        {
+            // Build regex from oldName (make dynamic groups for digits and text)
+            string pattern = Regex.Escape(oldName)
+                                  .Replace("01", "(\\d+)")
+                                  .Replace("abc", "(.*?)"); // example for flexible text parts
+
+            var regex = new Regex("^" + pattern + "$", RegexOptions.IgnoreCase);
+
+            var renamedFiles = new List<string>(files.Count);
+            foreach (var file in files)
+            {
+                var match = regex.Match(file);
+                if (match.Success)
+                {
+                    // Replace groups into newName
+                    string newFile = newName;
+                    for (int i = 1; i < match.Groups.Count; i++)
+                    {
+                        newFile = newFile.Replace($"${i}", match.Groups[i].Value);
+                    }
+                    renamedFiles.Add(newFile);
+                }
+                else
+                {
+                    // If no match, keep as-is
+                    renamedFiles.Add(file);
+                }
+            }
+            return renamedFiles;
+        }
+
+        // runTests() stays the same
+    }
+}
+```
+</details>
+
+Um dann noch sicher zu gehen ob der Code den uns ChatGPT dort geschrieben hat auch so funktioniert, wie wir es haben wollen, haben wir ihm nochmal alle Aufgaben, die zu erledigen sind, gegeben und gefragt ob der Code so funktionieren kann. 
+
+#### Antwort der KI: 
+
+</details>
+
+<details>
+    <summary> Antwort anzeigen</summary>
+
+```text
+I’ve carefully gone through your codebase.
+Right now, your implementation can rename files by applying regex/wildcard patterns and replacements, but it does not yet fully support all of the scenarios you listed:
+
+✅ What your code already supports
+
+Suffix/Prefix removal/addition
+→ You can do this by defining wildcard + replacePattern in Files.RenameFiles.
+Example: remove a suffix _old with
+
+RenameFiles("path", "*_old.*", "$1.$2");
+
+
+Partial expression renaming
+→ Your Matcher.matcher lets you capture parts of filenames using * / ? and reinsert them.
+So you can rename substrings or restructure names.
+
+Moving number pads
+→ Your ConvertDateInFilename already detects a numeric date pattern and reformats it (dd-MM-yy).
+This is a form of "moving number pads."
+
+❌ What’s missing / incomplete
+
+Suffix/Prefix deletion in a generic way
+
+Currently, you need to provide regex/wildcard yourself.
+
+No helper function like RemovePrefix("ABC_") or RemoveSuffix("_XYZ").
+
+General number re-ordering (pads)
+
+You only handle dates (ddMMyy or dMMyy).
+
+If you meant “move numbers to another position in filename” (e.g., img01_clipboard → clipboard_img01), that logic is not implemented.
+
+Partial expression renaming with backreferences
+
+In Matcher.matcher, your replacement with */? works, but is limited.
+
+Standard regex backreferences ($1, $2) aren’t supported in your replacement patterns.
+
+Integration is broken right now
+
+In Program.cs, the Main is unfinished (Matcher. line).
+
+Your tool doesn’t yet parse CLI arguments, so you can’t pass commands like
+
+Renamer.exe "C:\files" "*.jpg" "new-*.jpg"
+
+
+👉 So, your current code can already handle simple suffix/prefix changes, partial renaming, and a special case of moving number pads (dates).
+But to make it a flexible renaming tool like you described, you’ll need:
+
+A clean CLI interface in Program.cs.
+
+Helper functions for prefix/suffix removal.
+
+More general number handling (not just dates).
+
+Proper support for regex groups/backreferences in replacements.
+
+Do you want me to extend your code so that:
+
+RenameFiles supports backreferences ($1, $2, etc.),
+
+You can explicitly call helper methods like RemovePrefix, RemoveSuffix, and
+
+Add a “MoveNumbers” function (reorder digits inside the filename)?
+
+```
+</details>
+
+Weiter haben wir dann die KI genutzt um den unvollständigen Code zu verbessern und Fehler zu behebn, wobei die KI bei einfachen Fehlern, die jedoch nicht vom Compiler aufgezeigt wurden, oder nut teilweise und unverständlich. Oft haben wir uns dann auch die Probleme nachdem diese behoben wurden erklären lassen, denn ChatGPT kann durchaus, wenn ein Fehler dann mal lokalisiert ist, helfen Informationen zu filtern und Problematiken gut erklären. 
+
+#### Frage an die KI: 
+
+Can i Move number pads like this? :Renamer img-1.jpg 1-img.jpg?
+
+### Antwort von ChatGPT: 
+
+Good question 👍
+Right now your code cannot do that yet, because:
+Files.RenameFiles uses regex replace but doesn’t support backreferences like $1.
+Your Matcher.matcher does support * / ? captures, but it isn’t wired into the console program.
+🔎 Example you gave
+Renamer img-1.jpg 1-img.jpg
+
+Desired effect:
+Input: img-1.jpg
+Output: 1-img.jpg
+Or with wildcard:
+Renamer img-1.* 1-img.*
+Input: img-1.jpg, img-1.png
+Output: 1-img.jpg, 1-img.png
+✅ How to make this work
+We need to use Matcher.matcher in the console instead of plain Regex.Replace.
+
+✅ Minimal fix
+using System;
+using System.IO;
+using System.Collections.Generic;
+using Renamer;   // <-- this makes Matcher visible
+
+</details>
+
+<details>
+    <summary> Code anzeigen</summary>
+
+```csharp
+namespace Renamer
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            if (args.Length < 3)
+            {
+                Console.WriteLine("Usage: Renamer <directory> <oldPattern> <newPattern>");
+                Console.WriteLine("Example: Renamer C:\\files img-*.jpg *-img.jpg");
+                return;
+            }
+
+            string directory = args[0];
+            string oldPattern = args[1];
+            string newPattern = args[2];
+
+            if (!Directory.Exists(directory))
+            {
+                Console.WriteLine($"Directory not found: {directory}");
+                return;
+            }
+
+            var files = Directory.GetFiles(directory);
+            var newNames = Matcher.matcher(oldPattern, newPattern, new List<string>(files));
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                string oldPath = files[i];
+                string oldName = Path.GetFileName(oldPath);
+                string newName = newNames[i];
+
+                if (oldName == newName) continue; // no change
+
+                string newPath = Path.Combine(directory, newName);
+
+                if (File.Exists(newPath))
+                {
+                    Console.WriteLine($"Skipped {oldName} (target {newName} already exists)");
+                    continue;
+                }
+
+                File.Move(oldPath, newPath);
+                Console.WriteLine($"Renamed: {oldName} -> {newName}");
+            }
+        }
+    }
+}
+```
+</details>
+
+
 
