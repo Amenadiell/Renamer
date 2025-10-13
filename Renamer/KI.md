@@ -806,5 +806,8 @@ namespace Renamer
 ```
 </details>
 
+## Änderung der Vorgehensweise
+
+Um dann den Code zu vervollständigen zu können haben wir uns jedoch in der Gruppe dazu entschieden eine andere Methode zu benutzen um mit ChatGPT den Code zu verbessern. Aufgrund von Problemen im Code und eigenen Interpretationswegen des Codes haben wir dann ChatGPT nur noch als "Code-Kontoleur" geutzt, indem wir ihn zu verschiedenen Code-Abschnitten fragten, ob diese so wie sie sind funktionieren können 
 
 
