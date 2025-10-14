@@ -77,4 +77,15 @@ namespace Utils
 
 
     }
+
+    public class Help 
+    {
+        public static void writeHelp()
+        {
+            Console.WriteLine("FileRenamer ")
+            Console.WriteLine("FileRenamer img*.jpg img001.jpg");
+            Console.WriteLine("FileRenamer img*.jpg img001.jpg");
+        }
+
+    }
 }

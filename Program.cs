@@ -13,10 +13,12 @@ namespace Renamer
 
             if (args.Length < 2)
             {
-                Console.WriteLine("Usage: Renamer.exe <oldPattern> <newPattern> [occurrence]");
+                Console.WriteLine("Usage: FileRenamer <oldPattern> <newPattern> [occurrence](Optional)");
                 return;
             }
-
+            if (args[0] == "--help"){
+                Utils.writeHelp()
+            }
             string oldPattern = args[0];
             string newPattern = args[1];
             int occurrence = -1;
