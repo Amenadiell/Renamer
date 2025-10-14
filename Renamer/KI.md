@@ -6,7 +6,7 @@ Die KI, die wir zum Ausarbeiten des Projektes genutzt haben, ist ChatGPT.
 
 Um uns einen generellen Überblick und einen ersten Startpunkt von der KI zu erhalten, haben wir die Aufgabenstellung im Ganzen kopiert und der KI als ersten Promt gegeben. Im weiteren Verlauf der Projektarbeit haben wir dann diesen Code, der natürlich noch nicht funktionsfähig war von der KI verbessern lassen und neue Ideen miteinfließen lassen. Im letzten Schritt haben wir dann mithilfe der KI kontrolliert, ob der Code, welchen wir geschrieben haben, so funktionieren kann. 
 
-# KI Promts und Antworten  
+# KI Prompts und Antworten  
 
 ### Startpromt
 
@@ -1076,3 +1076,6 @@ Deshalb haben wir die Strategie verfolgt, den Code am Anfang von ChatGPT erstell
 Als wir dann aber immer mehr Probleme bekommen haben, die Fehler die in unserem Code entstanden sind mithilfe der KI zu verbessern, haben wir uns entschieden, die Methode, mit der wir die KI ansteuern zu ändern. Wir haben begonnen den Code selber zu schreiben, den Code dann von der KI kontrolieren zu lassen um mehr oder weniger sicher zu sein, dass dieser Code dann auch funktioniert. 
 
 Wir haben diese Methode gewählt, weil wir gesehen haben, dass die KI in unseren Augen einfach noch nicht so weit ist, komplexe Themen und Fragestellungen gut auszuarbeiten, vorallem weil die KI ihr Daten und Antworten aus schon bestehenden Internetinformationen zieht und wenn es zu bestimmten Themen keine Informationen gibt, können auch die Antworten der KI nicht so hochqualitativ werden. 
+Eine weitere Fehlerquelle sind natürlich auch wir als Promt geber, denn wenn man den Promt nicht zu 100 % genau stellt kann auch die Antwort der KI schlecht sein oder gar falsch, nur aus dem Grund, dass man zum Beispiel nicht den gesammten Code der KI zu verfügung gestellt hat. Oder die KI versucht die Frage zu interprtieren, weil diese nicht genau ist.
+
+Die KI haben wir aber nicht nur für Codegenerierung genutzt sondern auch zum Beispiel als Erklärung für Fehler. Denn wenn der Fehler im eigenen Code dann einmal klar war, dann konnte man der KI gut fragen zu deisen Fehlern stellen, ohne lang im Internet nach Antworten zu suchen 
