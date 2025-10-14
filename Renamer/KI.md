@@ -11,18 +11,22 @@ Um uns einen generellen Überblick und einen ersten Startpunkt von der KI zu erh
 ## Startpromt
 
 Entwickle ein Tool in C#, das in der Lage ist, Dateinamen-Muster zu erkennen und anschließend alle passenden Dateien in einem angegebenen Verzeichnis (inkl. Unterordner) automatisch umzubenennen. Besonderes Augenmerk liegt dabei auf der intelligenten Behandlung von Zahlenfolgen, etwa durch Einfügen führender Nullen zur Vereinheitlichung. 
+
 Beispieldateiname als Vorlage: 
- Der Benutzer gibt ein Beispiel für das gewünschte Dateinamen-Muster an (z. B. Bild_001.jpg), anhand dessen das Programm die allgemeine Struktur ableitet. 
+Der Benutzer gibt ein Beispiel für das gewünschte Dateinamen-Muster an (z. B. Bild_001.jpg), anhand dessen das Programm die allgemeine Struktur ableitet. 
+
 Mustererkennung: 
- Das Programm analysiert vorhandene Dateinamen und erkennt variable Komponenten – insbesondere Zahlen –, um ein konsistentes Muster zu ermitteln. 
+Das Programm analysiert vorhandene Dateinamen und erkennt variable Komponenten – insbesondere Zahlen –, um ein konsistentes Muster zu ermitteln. 
+
 Automatische Umbenennung: 
  Auf Basis des erkannten Musters werden alle passenden Dateien umbenannt. Zahlen können dabei automatisch mit führenden Nullen ergänzt oder formatiert werden (z. B. 1 → 001). 
+ 
 Verzeichnis-Rekursion: 
  Alle Dateien in einem gewählten Verzeichnis inklusive Unterordner werden berücksichtigt. 
 
  
 <details>
-  <summary> Code ansehen</summary>
+  <summary> ⬇️Code ansehen⬇️</summary>
 
 ```csharp
 
@@ -150,7 +154,7 @@ C# Helper Method
 Here’s a utility function to convert wildcard → regex:
 
 <details>
-  <summary> Code ansehen</summary>
+  <summary>⬇️Code ansehen⬇️</summary>
 
 ```csharp
 ```C#
@@ -215,7 +219,7 @@ Replace * in newName with group(1):
 *.gif → 123.gif
 
 <details>
-  <summary> Code ansehen</summary>
+  <summary> ⬇️Code ansehen⬇️</summary>
 
 ```csharp
 ```C#
@@ -275,7 +279,7 @@ Replaces it in the filename.
 </details>
 
 <details>
-    <summary> Code anzeigen</summary>
+    <summary> ⬇️Code anzeigen⬇️</summary>
 
 ```csharp
 public static string ConvertDateInFilename(string filename)
@@ -318,7 +322,7 @@ Here’s a cleaned-up version of Program.cs that integrates with your utilities 
 </details>
 
 <details>
-    <summary> Code anzeigen</summary>
+    <summary> ⬇️Code anzeigen⬇️</summary>
 
 ```csharp
 using System;
@@ -363,7 +367,7 @@ Als wir dann den Regex-Konverter ausprobieren konnten, fiel uns auf, das dieser 
 </details>
 
 <details>
-    <summary> Code anzeigen</summary>
+    <summary> ⬇️Code anzeigen⬇️</summary>
 
 ```csharp
 My Matcher.cs:
@@ -592,7 +596,7 @@ newName = "aaa-$2.jpg" → output: aaa-01.jpg, aaa-02.jpg, etc.
 </details>
 
 <details>
-    <summary> Code anzeigen</summary>
+    <summary> ⬇️Code anzeigen⬇️</summary>
 
 ```csharp
 namespace Renamer
@@ -646,7 +650,7 @@ Um dann noch sicher zu gehen ob der Code den uns ChatGPT dort geschrieben hat au
 </details>
 
 <details>
-    <summary> Antwort anzeigen</summary>
+    <summary> ⬇️Antwort anzeigen⬇️</summary>
 
 ```text
 I’ve carefully gone through your codebase.
@@ -754,7 +758,7 @@ using Renamer;   // <-- this makes Matcher visible
 </details>
 
 <details>
-    <summary> Code anzeigen</summary>
+    <summary> ⬇️Code anzeigen⬇️</summary>
 
 ```csharp
 namespace Renamer
@@ -821,7 +825,7 @@ Does this Code work like this?
 </details>
 
 <details>
-    <summary> Code anzeigen</summary>
+    <summary> ⬇️Code anzeigen⬇️</summary>
 
 ```csharp
 ﻿using System;
@@ -958,7 +962,7 @@ Und immer wenn man dann einen Hinweiß von der KI erhielt, bekam man auch gleich
 </details>
 
 <details>
-    <summary> Code anzeigen</summary>
+    <summary> ⬇️Code anzeigen⬇️</summary>
 
 ```csharp
  
