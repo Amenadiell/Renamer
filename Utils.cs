@@ -78,14 +78,20 @@ namespace Utils
 
     }
 
-    public class Help 
+public class Help 
+{
+    public static void writeHelp()
     {
-        public static void writeHelp()
-        {
-            Console.WriteLine("FileRenamer ")
-            Console.WriteLine("FileRenamer img*.jpg img001.jpg");
-            Console.WriteLine("FileRenamer img*.jpg img001.jpg");
-        }
-
+        Console.WriteLine(" FileRenamer ")
+        Console.WriteLine(" File erstellen: FileRenamer img bild");
+        Console.WriteLine(" Prefix ändern : FileRenamer data-.jpg image-.jpg");
+        Console.WriteLine(" Zahlen neu nummerieren : FileRenamer img-*.jpg img-001.jpg");
+        Console.WriteLine(" Ersetzen von Teilausdrücken : FileRenamer abc-.jpg neu-.jpg");
+        Console.WriteLine(" Datum formatieren: FileRenamer 28072013*.jpg 28-07-2013*.jpg");
+        Console.WriteLine(" Wildcard Fragezeichen: FileRenamer file?.jpg data?.jpg");
+        Console.WriteLine(" Erstes Vorkommen: FileRenamer img photo 1");
+        Console.WriteLine(" Aufräumen: del /Q *.jpg 2>nul");
     }
+
+}
 }
