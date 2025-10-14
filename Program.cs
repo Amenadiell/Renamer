@@ -28,9 +28,10 @@ namespace Renamer
             string currentDir = Directory.GetCurrentDirectory();
             List<string> files = new List<string>(Directory.GetFiles(currentDir));
 
-            if (Regex.IsMatch(oldPattern, @"^\d{8}\*\.jpg$") && Regex.IsMatch(newPattern, @"^\d{2}-\d{2}-\d{4}\*\.jpg$"))
+        if (Regex.IsMatch(oldPattern, @"^\d{8}\*\.[a-zA-Z0-9]+$") && 
+            Regex.IsMatch(newPattern, @"^\d{2}-\d{2}-\d{4}\*\.[a-zA-Z0-9]+$")) 
             {
-                Regex dateRegex = new Regex(@"^(?<date>\d{8})(?<rest>.*)\.jpg$", RegexOptions.IgnoreCase);
+                Regex dateRegex = new Regex(@"^(?<date>\d{8})(?<rest>.*)\.(?<extension>[a-zA-Z0-9]+)$", RegexOptions.IgnoreCase);
                 foreach (string oldFilePath in files)
                 {
                     string filename = Path.GetFileName(oldFilePath);
@@ -39,8 +40,9 @@ namespace Renamer
                     {
                         string date = m.Groups["date"].Value;
                         string rest = m.Groups["rest"].Value;
+                        string extension = m.Groups["extension"].Value;
                         string formattedDate = $"{date.Substring(0, 2)}-{date.Substring(2, 2)}-{date.Substring(4, 4)}";
-                        string newFileName = $"{formattedDate}{rest}.jpg";
+                        string newFileName = $"{formattedDate}{rest}.{extension}";
                         string newFilePath = Path.Combine(currentDir, newFileName);
 
                         if (!File.Exists(newFilePath))
@@ -54,7 +56,6 @@ namespace Renamer
                         }
                     }
                 }
-
                 // If newPattern contains a number placeholder (e.g., 001), use numbering
                 if (newPattern.Contains("001"))
                 {
