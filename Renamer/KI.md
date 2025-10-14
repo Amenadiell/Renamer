@@ -1071,6 +1071,59 @@ namespace Renamer
 Auch für kleinere Fragen und kleine Methoden haben wir die Strategie, nur zu fragen, ob der Code so stimmt, genutzt um so das bestmögliche Ergebnis für das Gruppenprojekt zu erzielen, ohne die gesammte Komplexität und Umfangreichheit der KI zu nutzen. 
 Die KI haben außerdem noch für Themen, wie zum Beispiel die Github-Anbindung und die Anbindung der Consolenanwedung mit der .exe im CMD. 
 
+### Frage zur Einbindung der .exe in den Path: 
+
+How can I add .exe to the Path? 
+
+### Antwort der KI: 
+
+<details>
+  <summary>⬇️ Antword anzeigen⬇️</summary>
+
+```text
+Nice — here are quick, copy-pasteable ways to add an .exe (actually the folder containing the .exe) to your PATH on Windows, macOS and Linux. I’ll show both temporary (current session) and persistent (permanent) methods plus how to verify it worked.
+
+Windows (add folder that contains the .exe)
+
+Note: PATH contains folders, not individual files — put the .exe in a folder and add that folder.
+
+GUI (Windows 10 / 11)
+
+Press Windows, type Environment Variables → Edit the system environment variables → click Environment Variables….
+
+Under User variables (or System variables for all users) select Path → Edit → New → paste the folder path (e.g. C:\Tools\MyApp) → OK.
+
+Command line (current PowerShell session only)
+
+$env:Path += ";C:\Tools\MyApp"
+
+
+This lasts only for the current PowerShell process.
+
+Command line (persist for current user)
+PowerShell (recommended):
+
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Tools\MyApp", "User")
+
+
+For system-wide (requires Admin PowerShell):
+
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path","Machine") + ";C:\Tools\MyApp", "Machine")
+
+
+CMD setx (persistent for user):
+
+setx PATH "%PATH%;C:\Tools\MyApp"
+
+
+Caution: setx creates a new value for the user PATH — open a new Command Prompt or restart apps to see it.
+
+Verify
+```
+</details>
+
+Bei solchen Vorgängen kann die KI sehr gut helfen, ohne das man lange nach Antworten im Internet suchen muss.
+
 # Fazit
 
 Zusammenfassend lässt sich festhalten, dass die KI zwar gut geeignet ist, um erste Ideen und Codevorschläge zu erhalten, jedoch an ihre Grenzen stößt, sobald man ein Thema detailliert vertiefen oder ein komplexes Problem lösen möchte. In solchen Fällen neigt die KI dazu, immer wieder ähnliche Vorschläge zu machen und bestehende Fehler nicht mehr zu erkennen.
