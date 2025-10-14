@@ -72,16 +72,14 @@ namespace Renamer
                                "clipboard01.gif", "img01.jpg", "img-abc.jpg" };
 
             oldP = "clipboard01.jpg";
-            newP = "clipboard01.jpg";
-            res = "clipboard01.jpg clipboard02.jpg clipboard03.jpg clipboard01.gif img01.jpg img-abc.jpg";
+            newP = "clipboard.jpg";
+            res = "clipboard.jpg"
             test(files1, oldP, newP, res);
 
-            /*
-            oldP = "clipboard01.jpg";
-            newP = "aaa-clipboard01.jpg";
-            res = "aaa-01.jpg aaa-02.jpg aaa-03.jpg aaa-clipboard01.gif aaa-img01.jpg aaa-img-abc.jpg";
+            oldP = "clipboard.jpg";
+            newP = "aaa-clipboard01.jpg";        
+            res = "aaa-clipboard01.jpg"
             test(files1, oldP, newP, res);
-            */
 
             Console.BackgroundColor = ConsoleColor.Green;
             Console.WriteLine("All tests succeeded!");

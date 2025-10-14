@@ -10,14 +10,16 @@ namespace Renamer
     {
         static void Main(string[] args)
         {
-
+            if (args[0] == "--help"){
+                Help.writeHelp()
+            }
+            if (args[0] == "--test"){
+                Matcher.runTests()
+            }
             if (args.Length < 2)
             {
                 Console.WriteLine("Usage: FileRenamer <oldPattern> <newPattern> [occurrence](Optional)");
                 return;
-            }
-            if (args[0] == "--help"){
-                Utils.writeHelp()
             }
             string oldPattern = args[0];
             string newPattern = args[1];
