@@ -8,7 +8,7 @@ Um uns einen generellen Überblick und einen ersten Startpunkt von der KI zu erh
 
 # KI Prompts und Antworten  
 
-### Startpromt
+## Startpromt
 
 Entwickle ein Tool in C#, das in der Lage ist, Dateinamen-Muster zu erkennen und anschließend alle passenden Dateien in einem angegebenen Verzeichnis (inkl. Unterordner) automatisch umzubenennen. Besonderes Augenmerk liegt dabei auf der intelligenten Behandlung von Zahlenfolgen, etwa durch Einfügen führender Nullen zur Vereinheitlichung. 
 Beispieldateiname als Vorlage: 
@@ -129,10 +129,10 @@ namespace FilePatternRenamer
 ```
 </details>
 
-### Weitere Ausarbeitung des Startcodes
+## Weitere Ausarbeitung des Startcodes
 Als nächstest wollten wir von der KI ein funtionirendes Regex Pattern um unsere Files zu verändern
 
-#### Antwort der KI: 
+### Antwort der KI: 
 Got it 👍 — you want a Regex pattern generator that can take file wildcard expressions (like *.txt or file_??.jpg) and translate them into valid C# Regex patterns that you can use to match filenames.
 Here’s the key idea:
 * → matches any number of characters → .* in regex
@@ -173,7 +173,7 @@ public static class WildcardToRegex
 
 Da dies unsere Bedingungen noch nicht zu 100% erfüllte und es noch einige Bugs gab, stellten wir den Promt mit genauen Beispielen, nocheinmal: 
 
-#### Promt: 
+### Promt: 
 
 I am working on a File Renamer built in C# to match the files to be renamed i need a Regex pattern to match different files with Wildcards
 The Renamer should be able to change and delete the Suffix/Präfix with the terminal.
@@ -196,7 +196,7 @@ comand: c:\>renamer img-123.jpg img-123.gif
             c:\>renamer *.jpg *.gif
 outcome: img-123.gif img-3333.gif img-abc.png
 
-#### Antwort der KI: 
+### Antwort der KI: 
 
 Got it 👍 — thanks for sharing all the code.
 Right now, your RegexConverter handles * and ? wildcards, but your matcher() is not actually applying capture groups, which is what you’ll need to map oldName → newName properly.
@@ -266,7 +266,7 @@ public static List<string> matcher(string oldName, string newName, List<string> 
 
 Um der Aufganbenstellung gerecht zu werden, haben wir uns dann noch um die Trennung des Datums mit - gemacht um diese in unseren Code einzubinden. 
 
-#### Antwort der KI: 
+### Antwort der KI: 
 Good question 👌 — you basically want a helper that:
 Detects whether a date-like string (e.g. 31225) exists in the filename.
 Splits it into dd-MM-yy format (→ 31-12-25).
@@ -307,7 +307,7 @@ Diese Implementierung hatte tatsächlich auch seinen Mehrwert, die Trennun funkt
 Wir hatten ein Problem den Code auszuführen, da wir mehrere main Methoden hatten, da wir an mehreren Stellen gleichzeitig mit ChatGPT gearbeitet hatten und dieser dann nicht genau mit unserem Code umgehen konnte. 
 Dafür haben wir ihm unsere gesammte Projektmappe gegeben um so ChatGPT ein besseren Überblich zu geben, wo wir gerade Probleme haben. 
 
-#### Antwort der KI: 
+### Antwort der KI: 
 Perfect 👍 — let’s get your integration fixed first so the project actually runs from the console.
 Right now, you have two entry points:
 Matcher.Main() in Matcher.cs
@@ -358,7 +358,7 @@ namespace Renamer
 
 Als wir dann den Regex-Konverter ausprobieren konnten, fiel uns auf, das dieser nicht so funktionierte, wie gewollt und wir immer eine Fehlermeldung beim Auführen des Programmes bekamen. Deshalb gaben wir ChatGPT den gesammten Code, in dem wir den Converter benutzten und wollten nocheinmal einen Code für den Converter. 
 
-#### Unser Code an die KI: 
+### Unser Code an die KI: 
 
 </details>
 
@@ -575,7 +575,7 @@ namespace Utils
 ```
 </details>
 
-#### Antwort der KI: 
+### Antwort der KI: 
 
 Got it 👍 You already have most of the scaffolding in place — RegexConverter handles wildcards → regex, and Utils.Files applies renaming.
 What’s missing is the matcher logic in Matcher.matcher(): it should take oldName and newName, derive a regex pattern from oldName, and then apply the same transformation to all files in the list.
@@ -641,7 +641,7 @@ namespace Renamer
 
 Um dann noch sicher zu gehen ob der Code den uns ChatGPT dort geschrieben hat auch so funktioniert, wie wir es haben wollen, haben wir ihm nochmal alle Aufgaben, die zu erledigen sind, gegeben und gefragt ob der Code so funktionieren kann. 
 
-#### Antwort der KI: 
+### Antwort der KI: 
 
 </details>
 
@@ -808,13 +808,13 @@ namespace Renamer
 ```
 </details>
 
-## Änderung der Vorgehensweise
+# Änderung der Vorgehensweise
 
 Um dann den Code zu vervollständigen zu können haben wir uns jedoch in der Gruppe dazu entschieden eine andere Methode zu benutzen um mit ChatGPT den Code zu verbessern. Aufgrund von Problemen im Code und eigenen Interpretationswegen des Codes haben wir dann ChatGPT nur noch als "Code-Kontoleur" geutzt, indem wir ihn zu verschiedenen Code-Abschnitten fragten, ob diese so wie sie sind funktionieren können. 
 
 So wie zum Beispiel hier: 
 
-#### Unsere Frage mit Code: 
+### Unsere Frage mit Code: 
 
 Does this Code work like this?
 
@@ -932,7 +932,7 @@ namespace Renamer
 ```
 </details>
 
-#### Antword der KI auf diese Frage: 
+### Antword der KI auf diese Frage: 
 
 Good question 👍 — let’s analyze your C# code carefully.
 At a glance, it’s almost functional, but there are a few issues and missing details that will prevent it from working exactly as you intend.
@@ -953,7 +953,7 @@ using System.IO;
 
 Und immer wenn man dann einen Hinweiß von der KI erhielt, bekam man auch gleich den Code in einer Variante, so wie die KI dachte, dass der Code funktioniert. 
 
-#### Überarbeiteter Code von ChatGPT: 
+### Überarbeiteter Code von ChatGPT: 
 
 </details>
 
@@ -1062,20 +1062,23 @@ namespace Renamer
 ```
 </details>
 
-### Andere Nutzungen der KI
+## Andere Nutzungen der KI
 
 Auch für kleinere Fragen und kleine Methoden haben wir die Strategie, nur zu fragen, ob der Code so stimmt, genutzt um so das bestmögliche Ergebnis für das Gruppenprojekt zu erzielen, ohne die gesammte Komplexität und Umfangreichheit der KI zu nutzen. 
 Die KI haben außerdem noch für Themen, wie zum Beispiel die Github-Anbindung und die Anbindung der Consolenanwedung mit der .exe im CMD. 
 
-## Fazit
+# Fazit
 
-Zusammenfassend lässt sich festhalten, dass die KI zwar in Ordnung ist, um erste Startideen und Codevorschläge zu erhalten, aber wenn man dann detaliert ein Thema vertiefen möchte oder ein Problem hat, das die KI nicht sofort erkennt, dann liefert diese immer wieder die gleichen Vorschläge und erkennt den Fehler dann nur noch weniger. 
+Zusammenfassend lässt sich festhalten, dass die KI zwar gut geeignet ist, um erste Ideen und Codevorschläge zu erhalten, jedoch an ihre Grenzen stößt, sobald man ein Thema detailliert vertiefen oder ein komplexes Problem lösen möchte. In solchen Fällen neigt die KI dazu, immer wieder ähnliche Vorschläge zu machen und bestehende Fehler nicht mehr zu erkennen.
 
-Deshalb haben wir die Strategie verfolgt, den Code am Anfang von ChatGPT erstellen zu lassen, indem wir alle Aufgabenstellungen der KI als Promt gegeben haben. Anschließend haben wir diesen Code mit der KI verbessert. 
+Aus diesem Grund haben wir die Strategie verfolgt, den Code zunächst von ChatGPT erstellen zu lassen, indem wir alle Aufgabenstellungen als Prompt eingegeben haben. Anschließend wurde der generierte Code gemeinsam mit der KI weiter verbessert.
 
-Als wir dann aber immer mehr Probleme bekommen haben, die Fehler die in unserem Code entstanden sind mithilfe der KI zu verbessern, haben wir uns entschieden, die Methode, mit der wir die KI ansteuern zu ändern. Wir haben begonnen den Code selber zu schreiben, den Code dann von der KI kontrolieren zu lassen um mehr oder weniger sicher zu sein, dass dieser Code dann auch funktioniert. 
+Als wir jedoch zunehmend Schwierigkeiten hatten, die im Code auftretenden Fehler mithilfe der KI zu beheben, entschieden wir uns, unsere Vorgehensweise zu ändern. Wir begannen, den Code selbst zu schreiben und ihn anschließend von der KI überprüfen zu lassen, um sicherzugehen, dass dieser fehlerfrei und funktionsfähig ist.
 
-Wir haben diese Methode gewählt, weil wir gesehen haben, dass die KI in unseren Augen einfach noch nicht so weit ist, komplexe Themen und Fragestellungen gut auszuarbeiten, vorallem weil die KI ihr Daten und Antworten aus schon bestehenden Internetinformationen zieht und wenn es zu bestimmten Themen keine Informationen gibt, können auch die Antworten der KI nicht so hochqualitativ werden. 
-Eine weitere Fehlerquelle sind natürlich auch wir als Promt geber, denn wenn man den Promt nicht zu 100 % genau stellt kann auch die Antwort der KI schlecht sein oder gar falsch, nur aus dem Grund, dass man zum Beispiel nicht den gesammten Code der KI zu verfügung gestellt hat. Oder die KI versucht die Frage zu interprtieren, weil diese nicht genau ist.
+Diese Methode erwies sich als effektiver, da wir festgestellt haben, dass die KI unserer Einschätzung nach derzeit noch nicht in der Lage ist, komplexe Themen und Fragestellungen zuverlässig und tiefgehend zu bearbeiten. Das liegt vor allem daran, dass die KI ihre Informationen aus bereits bestehenden Internetquellen bezieht. Wenn zu bestimmten Themen kaum oder keine Daten vorhanden sind, kann auch die Qualität der KI-Antworten entsprechend geringer ausfallen.
 
-Die KI haben wir aber nicht nur für Codegenerierung genutzt sondern auch zum Beispiel als Erklärung für Fehler. Denn wenn der Fehler im eigenen Code dann einmal klar war, dann konnte man der KI gut fragen zu deisen Fehlern stellen, ohne lang im Internet nach Antworten zu suchen 
+Eine weitere mögliche Fehlerquelle liegt zudem bei uns als Promptgebern. Wenn ein Prompt nicht präzise genug formuliert ist oder der KI beispielsweise nicht der vollständige Code zur Verfügung steht, kann dies zu ungenauen oder fehlerhaften Antworten führen. In solchen Fällen versucht die KI, die unklare Frage zu interpretieren, was häufig zu falschen Ergebnissen führt.
+
+Neben der Codegenerierung haben wir die KI jedoch auch als Hilfsmittel zur Fehlererklärung genutzt. Sobald der Fehler im eigenen Code identifiziert war, konnten wir der KI gezielte Fragen dazu stellen – und so schnell verständliche Erklärungen erhalten, ohne lange im Internet nach Lösungen suchen zu müssen.
+
+Deshalb würde ich abschließend sagen, dass die KI uns in unserem Projekt aufjeden Fall weitergeholfen hat, jedoch ist sie auf keinen Fall schon so ausgebaut, dass sie Code ganz alleine und ohne weitere Kontrolle generieren kann. 
