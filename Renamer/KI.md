@@ -1073,4 +1073,6 @@ Zusammenfassend lässt sich festhalten, dass die KI zwar in Ordnung ist, um erst
 
 Deshalb haben wir die Strategie verfolgt, den Code am Anfang von ChatGPT erstellen zu lassen, indem wir alle Aufgabenstellungen der KI als Promt gegeben haben. Anschließend haben wir diesen Code mit der KI verbessert. 
 
-Als wir dann aber immer mehr Probleme bekommen haben, die Fehler die in unserem Code entstanden sind mithilfe der KI zu verbessern, haben wir uns entschieden, die Methode, mit der wir die KI ansteuern zu ändern. Wir haben begonnen den Code selber zu schreiben, den Code dann von der KI kontrolieren zu lassen 
+Als wir dann aber immer mehr Probleme bekommen haben, die Fehler die in unserem Code entstanden sind mithilfe der KI zu verbessern, haben wir uns entschieden, die Methode, mit der wir die KI ansteuern zu ändern. Wir haben begonnen den Code selber zu schreiben, den Code dann von der KI kontrolieren zu lassen um mehr oder weniger sicher zu sein, dass dieser Code dann auch funktioniert. 
+
+Wir haben diese Methode gewählt, weil wir gesehen haben, dass die KI in unseren Augen einfach noch nicht so weit ist, komplexe Themen und Fragestellungen gut auszuarbeiten, vorallem weil die KI ihr Daten und Antworten aus schon bestehenden Internetinformationen zieht und wenn es zu bestimmten Themen keine Informationen gibt, können auch die Antworten der KI nicht so hochqualitativ werden. 
