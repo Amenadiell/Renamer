@@ -1068,3 +1068,9 @@ Auch für kleinere Fragen und kleine Methoden haben wir die Strategie, nur zu fr
 Die KI haben außerdem noch für Themen, wie zum Beispiel die Github-Anbindung und die Anbindung der Consolenanwedung mit der .exe im CMD. 
 
 ## Fazit
+
+Zusammenfassend lässt sich festhalten, dass die KI zwar in Ordnung ist, um erste Startideen und Codevorschläge zu erhalten, aber wenn man dann detaliert ein Thema vertiefen möchte oder ein Problem hat, das die KI nicht sofort erkennt, dann liefert diese immer wieder die gleichen Vorschläge und erkennt den Fehler dann nur noch weniger. 
+
+Deshalb haben wir die Strategie verfolgt, den Code am Anfang von ChatGPT erstellen zu lassen, indem wir alle Aufgabenstellungen der KI als Promt gegeben haben. Anschließend haben wir diesen Code mit der KI verbessert. 
+
+Als wir dann aber immer mehr Probleme bekommen haben, die Fehler die in unserem Code entstanden sind mithilfe der KI zu verbessern, haben wir uns entschieden, die Methode, mit der wir die KI ansteuern zu ändern. Wir haben begonnen den Code selber zu schreiben, den Code dann von der KI kontrolieren zu lassen 
