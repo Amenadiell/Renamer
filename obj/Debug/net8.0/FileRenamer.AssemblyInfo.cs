@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FileRenamer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+652a76f1c6d50a7ee0c935d51434d409fa1153e4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8b17f6cf2a9da8b9e57459c61b8a8a898c6151d4")]
 [assembly: System.Reflection.AssemblyProductAttribute("FileRenamer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FileRenamer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
